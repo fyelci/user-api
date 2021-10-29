@@ -39,3 +39,6 @@ If you want to start the server in production mode, run following command
 ```
 npm run start
 ```
+
+## Deployment
+This application is not deployed yet, but can be deployed to ECS by using cloudformation scripts in the `infrastructure` folder.
