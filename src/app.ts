@@ -50,7 +50,7 @@ class App {
 
   private initializeMiddlewares() {
     this.app.use(morgan(config.log.format, { stream }));
-    this.app.use(cors({ origin: config.cors.origin, credentials: config.cors.credentials }));
+    this.app.use(cors({ origin: config.cors.origin, credentials: true }));
     this.app.use(hpp());
     this.app.use(helmet());
     this.app.use(compression());

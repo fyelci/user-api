@@ -18,7 +18,7 @@ export interface Config {
     password: string;
   };
   cors: {
-    origin: boolean;
+    origin: string;
     credentials: boolean;
   };
 }
@@ -35,7 +35,7 @@ export const config: Config = Object.freeze({
   },
   secretKey: process.env.SECRET_KEY as string,
   cors: {
-    origin: (process.env.CORS_ORIGIN as string) === 'true',
+    origin: (process.env.CORS_ORIGIN as string) || '*',
     credentials: (process.env.CORS_CREDENTIALS as string) === 'true',
   },
   log: {

@@ -27,10 +27,10 @@ class AuthService {
     if (isEmpty(userData)) throw new HttpException(400, 'Please check your input');
 
     const user: User = await Users.query().select().from('users').where('username', '=', userData.username).first();
-    if (!user) throw new HttpException(409, `Your username ${userData.username} not found`);
+    if (!user) throw new HttpException(404, `Your username ${userData.username} not found`);
 
     const isPasswordMatching: boolean = await bcrypt.compare(userData.password, user.password);
-    if (!isPasswordMatching) throw new HttpException(409, 'Password did not match, plsease check your input');
+    if (!isPasswordMatching) throw new HttpException(401, 'Password did not match, plsease check your input');
 
     const tokenData = this.createToken(user);
     const cookie = this.createCookie(tokenData);
