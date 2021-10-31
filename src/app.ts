@@ -48,9 +48,13 @@ class App {
     Model.knex(knex);
   }
 
+  private getOrigin(): string | string[] {
+    return config.cors.origin.indexOf(',') > 0 ? config.cors.origin.split(',') : config.cors.origin;
+  }
+
   private initializeMiddlewares() {
     this.app.use(morgan(config.log.format, { stream }));
-    this.app.use(cors({ origin: config.cors.origin, credentials: true }));
+    this.app.use(cors({ origin: this.getOrigin(), credentials: true, allowedHeaders: 'Content-Type,Set-Cookie' }));
     this.app.use(hpp());
     this.app.use(helmet());
     this.app.use(compression());

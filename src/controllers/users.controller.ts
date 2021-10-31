@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { CreateUserDto } from '@dtos/users.dto';
 import { User } from '@interfaces/users.interface';
 import userService from '@services/users.service';
+import { RequestWithUser } from '@interfaces/auth.interface';
 
 class UsersController {
   public userService = new userService();
@@ -44,6 +45,14 @@ class UsersController {
       const deleteUser: User = await this.userService.deleteUser(userId);
 
       res.status(200).json({ id: deleteUser.id });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public getProfile = async (req: RequestWithUser, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      res.status(200).json(req.user);
     } catch (error) {
       next(error);
     }
